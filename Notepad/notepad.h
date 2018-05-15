@@ -49,6 +49,12 @@ protected:
        QAction *cppAct;
        QAction *javaAct;
        QAction *cssAct;
+          // CZCIONKI
+       QAction *sizeAct;
+       QAction *typeAct;
+       QAction *boldAct;
+       QAction *italicAct;
+       QAction *underlineAct;
 
        QActionGroup *alignmentGroup;
 private slots:
@@ -72,6 +78,14 @@ private slots:
     void cpp();
     void java();
     void css();
+
+       // CZCIONKI
+    void size();
+    void type();
+    void bold();
+    void italic();
+    void underline();
+
 
 private:
     void createActions();

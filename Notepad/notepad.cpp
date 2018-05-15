@@ -84,6 +84,40 @@ void Notepad::createActions()
 
     cssAct = new QAction(tr("&CSS"), this);
     connect(cssAct, &QAction::triggered, this, &Notepad::css);
+
+    // ------------- Czcionka
+    sizeAct = new QAction(tr("&Rozmiar"), this);
+    connect(sizeAct, &QAction::triggered, this, &Notepad::size);
+
+    typeAct = new QAction(tr("&Typ czcionki"), this);
+    connect(typeAct, &QAction::triggered, this, &Notepad::type);
+
+    boldAct = new QAction(tr("&Pogrubienie"), this);
+    boldAct->setCheckable(true);
+    boldAct->setShortcut(QKeySequence::Bold);
+    connect(boldAct, &QAction::triggered, this, &Notepad::bold);
+
+    QFont boldFont = boldAct->font();
+    boldFont.setBold(true);
+    boldAct->setFont(boldFont);
+
+    italicAct = new QAction(tr("&Kursywa"), this);
+    italicAct->setCheckable(true);
+    italicAct->setShortcut(QKeySequence::Italic);
+    connect(italicAct, &QAction::triggered, this, &Notepad::italic);
+
+    QFont italicFont = italicAct->font();
+    italicFont.setItalic(true);
+    italicAct->setFont(italicFont);
+
+    underlineAct = new QAction(tr("&Podkreślenie"), this);
+    underlineAct->setCheckable(true);
+    underlineAct->setShortcut(QKeySequence::Underline);
+    connect(underlineAct, &QAction::triggered, this, &Notepad::underline);
+
+    QFont underlineFont = underlineAct->font();
+    underlineFont.setUnderline(true);
+    underlineAct->setFont(underlineFont);
 }
 
 void Notepad::createMenus()
@@ -106,6 +140,15 @@ void Notepad::createMenus()
     editMenu->addAction(copyAct);
     editMenu->addAction(pasteAct);
     editMenu->addSeparator();
+
+    // ------------- Czcionka
+    encodingMenu = menuBar()->addMenu(tr("&Czcionka"));
+    encodingMenu->addAction(sizeAct);
+    encodingMenu->addAction(typeAct);
+    encodingMenu->addSeparator();
+    encodingMenu->addAction(boldAct);
+    encodingMenu->addAction(italicAct);
+    encodingMenu->addAction(underlineAct);
 
     // ------------- Kodowanie
     encodingMenu = menuBar()->addMenu(tr("&Kodowanie"));
@@ -249,3 +292,27 @@ void Notepad::repaintTekst(int newFormat)
 
 }
 
+void Notepad::bold()
+{
+    ui->tekst->setText(tr("Invoked <b>Edit|Format|Bold</b>"));
+}
+
+void Notepad::italic()
+{
+    ui->tekst->setText(tr("Invoked <b>Edit|Format|Italic</b>"));
+}
+
+void Notepad::underline()
+{
+    ui->tekst->setText(tr("Invoked <b>Edit|Format|Underline</b>"));
+}
+
+void Notepad::size()
+{
+
+}
+
+void Notepad::type()
+{
+
+}
