@@ -47,12 +47,12 @@ void Notepad::createActions()
     undoAct = new QAction(tr("&Cofnij"), this);
     undoAct->setShortcuts(QKeySequence::Undo);
     undoAct->setStatusTip(tr("Cofnij ostatnią operację"));
-    connect(undoAct, &QAction::triggered, this, &Notepad::undo);
+    connect(undoAct, &QAction::triggered, this, &Notepad::mundo);
 
     redoAct = new QAction(tr("&Przywróć"), this);
     redoAct->setShortcuts(QKeySequence::Redo);
     redoAct->setStatusTip(tr("Przywróć cofniętą operację"));
-    connect(redoAct, &QAction::triggered, this, &Notepad::redo);
+    connect(redoAct, &QAction::triggered, this, &Notepad::mredo);
 
     cutAct = new QAction(tr("&Wytnij"), this);
     cutAct->setShortcuts(QKeySequence::Cut);
@@ -92,7 +92,14 @@ void Notepad::createMenus()
     editMenu->addAction(pasteAct);
     editMenu->addSeparator();
 
-
+    // ------------- Kodowanie
+    encodingMenu = menuBar()->addMenu(tr("&Edycja"));
+    encodingMenu->addAction(utfAct);
+    encodingMenu->addAction(ansiAct);
+    encodingMenu->addSeparator();
+    encodingMenu->addAction(cppAct);
+    encodingMenu->addAction(javaAct);
+    encodingMenu->addAction(cssAct);
 }
 
 void Notepad::newFile()
@@ -173,12 +180,12 @@ void Notepad::exit()
     }
 }
 
-void Notepad::undo()
+void Notepad::mundo()
 {
     ui->tekst->undo();
 }
 
-void Notepad::redo()
+void Notepad::mredo()
 {
     ui->tekst->redo();
 }
@@ -197,3 +204,33 @@ void Notepad::paste()
 {
     ui->tekst->paste();
 }
+
+void Notepad::utf()
+{
+
+}
+
+void Notepad::ansi()
+{
+
+}
+
+void Notepad::cpp()
+{
+    repaintTekst(1);
+}
+
+void Notepad::java()
+{
+    repaintTekst(2);
+}
+void Notepad::css()
+{
+    repaintTekst(3);
+}
+
+void Notepad::repaintTekst(int newFormat)
+{
+
+}
+

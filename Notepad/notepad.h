@@ -26,23 +26,29 @@ public:
     ~Notepad();
 
 protected:
-
+           // MENU
        QMenu *fileMenu;
        QMenu *editMenu;
        QMenu *encodingMenu;
        QMenu *fontMenu;
-
+          // PLIK
        QAction *newAct;
        QAction *openAct;
        QAction *saveAct;
        QAction *saveAsAct;
        QAction *exitAct;
-
+          // EDYCJA
        QAction *undoAct;
        QAction *redoAct;
        QAction *cutAct;
        QAction *copyAct;
        QAction *pasteAct;
+          // KODOWANIE
+       QAction *utfAct;
+       QAction *ansiAct;
+       QAction *cppAct;
+       QAction *javaAct;
+       QAction *cssAct;
 
        QActionGroup *alignmentGroup;
 private slots:
@@ -53,16 +59,24 @@ private slots:
     void saveas();
     void exit();
 
-       //EDYCJA
-    void undo();
-    void redo();
+       // EDYCJA
+    void mundo();
+    void mredo();
     void cut();
     void copy();
     void paste();
 
+       // KODOWANIE
+    void utf();
+    void ansi();
+    void cpp();
+    void java();
+    void css();
+
 private:
     void createActions();
     void createMenus();
+    void repaintTekst(int newFormat);
 
     Ui::Notepad *ui;
 
