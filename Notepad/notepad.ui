@@ -1,24 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Notepad</class>
- <widget class="QMainWindow" name="Notepad" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="Notepad">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>523</width>
+    <height>385</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Notepad</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTextEdit" name="tekst">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>511</width>
+      <height>331</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>523</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="nowy">
+   <property name="text">
+    <string>Nowy</string>
+   </property>
+  </action>
+  <action name="otworz">
+   <property name="text">
+    <string>Otwórz</string>
+   </property>
+  </action>
+  <action name="zapisz">
+   <property name="text">
+    <string>Zapisz</string>
+   </property>
+  </action>
+  <action name="zapiszjako">
+   <property name="text">
+    <string>Zapisz jako...</string>
+   </property>
+  </action>
+  <action name="utf">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>UTF-8</string>
+   </property>
+  </action>
+  <action name="ansi">
+   <property name="text">
+    <string>ANSI</string>
+   </property>
+  </action>
+  <action name="c">
+   <property name="text">
+    <string>c++</string>
+   </property>
+  </action>
+  <action name="java">
+   <property name="text">
+    <string>java</string>
+   </property>
+  </action>
+  <action name="css">
+   <property name="text">
+    <string>css</string>
+   </property>
+  </action>
+  <action name="rozmiar">
+   <property name="text">
+    <string>Rozmiar</string>
+   </property>
+  </action>
+  <action name="typ">
+   <property name="text">
+    <string>Typ</string>
+   </property>
+  </action>
+  <action name="pogrub">
+   <property name="text">
+    <string>Pogrubienie</string>
+   </property>
+  </action>
+  <action name="pochyl">
+   <property name="text">
+    <string>Pochylenie</string>
+   </property>
+  </action>
+  <action name="podkresl">
+   <property name="text">
+    <string>Podkreślenie</string>
+   </property>
+  </action>
+  <action name="kopiuj">
+   <property name="text">
+    <string>Kopiuj</string>
+   </property>
+  </action>
+  <action name="wytnij">
+   <property name="text">
+    <string>Wytnij</string>
+   </property>
+  </action>
+  <action name="wklej">
+   <property name="text">
+    <string>Wklej</string>
+   </property>
+  </action>
+  <action name="znajdz">
+   <property name="text">
+    <string>Znajdź</string>
+   </property>
+  </action>
+  <action name="zamien">
+   <property name="text">
+    <string>Zamień</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>
