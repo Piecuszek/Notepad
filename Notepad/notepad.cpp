@@ -34,7 +34,7 @@ void Notepad::createActions()
     connect(saveAct, &QAction::triggered, this, &Notepad::save);
 
     saveAsAct = new QAction(tr("&Zapisz jako..."), this);
-    saveAsAct->setShortcuts(QKeySequence::SaveAs);
+    saveAsAct->setShortcut(tr("Ctrl+Alt+S"));
     saveAsAct->setStatusTip(tr("&Zapisz jako nowy plik"));
     connect(saveAsAct, &QAction::triggered, this, &Notepad::saveas);
 
@@ -69,6 +69,21 @@ void Notepad::createActions()
     pasteAct->setStatusTip(tr("Wklej ze schowka"));
     connect(pasteAct, &QAction::triggered, this, &Notepad::paste);
 
+    // ------------- Kodowanie
+    utfAct = new QAction(tr("&UTF-8"), this);
+    connect(utfAct, &QAction::triggered, this, &Notepad::utf);
+
+    ansiAct = new QAction(tr("&ANSI"), this);
+    connect(ansiAct, &QAction::triggered, this, &Notepad::ansi);
+
+    cppAct = new QAction(tr("&C/C++"), this);
+    connect(cppAct, &QAction::triggered, this, &Notepad::cpp);
+
+    javaAct = new QAction(tr("&Java"), this);
+    connect(javaAct, &QAction::triggered, this, &Notepad::java);
+
+    cssAct = new QAction(tr("&CSS"), this);
+    connect(cssAct, &QAction::triggered, this, &Notepad::css);
 }
 
 void Notepad::createMenus()
@@ -93,7 +108,7 @@ void Notepad::createMenus()
     editMenu->addSeparator();
 
     // ------------- Kodowanie
-    encodingMenu = menuBar()->addMenu(tr("&Edycja"));
+    encodingMenu = menuBar()->addMenu(tr("&Kodowanie"));
     encodingMenu->addAction(utfAct);
     encodingMenu->addAction(ansiAct);
     encodingMenu->addSeparator();
