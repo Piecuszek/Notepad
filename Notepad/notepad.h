@@ -3,9 +3,14 @@
 
 #include <QMainWindow>
 #include <QFile>
-#include <QActionGroup>
+#include <QFileDialog>
 #include <QMessageBox>
+#include <QTextStream>
+#include <QFont>
+#include <QFontDialog>
 
+class QAction;
+class QActionGroup;
 
 namespace Ui {
 class Notepad;
@@ -15,17 +20,17 @@ class Notepad : public QMainWindow
 {
     Q_OBJECT
 
+
 public:
     explicit Notepad(QWidget *parent = 0);
     ~Notepad();
 
 protected:
-       QMessageBox mgbox;
+
        QMenu *fileMenu;
        QMenu *editMenu;
        QMenu *encodingMenu;
        QMenu *fontMenu;
-       QActionGroup *alignmentGroup;
 
        QAction *newAct;
        QAction *openAct;
@@ -39,14 +44,16 @@ protected:
        QAction *copyAct;
        QAction *pasteAct;
 
-
+       QActionGroup *alignmentGroup;
 private slots:
+       // PLIK
     void newFile();
     void open();
     void save();
     void saveas();
     void exit();
 
+       //EDYCJA
     void undo();
     void redo();
     void cut();
@@ -56,7 +63,13 @@ private slots:
 private:
     void createActions();
     void createMenus();
+
     Ui::Notepad *ui;
+
+    int         format;
+    QString     currentFileName;
+    QMessageBox mgbox;
+
 };
 
 #endif // NOTEPAD_H

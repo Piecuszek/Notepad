@@ -97,60 +97,103 @@ void Notepad::createMenus()
 
 void Notepad::newFile()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    currentFileName.clear();
+    ui->tekst->setText(QString());
 }
 
 void Notepad::open()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    QString fileName = QFileDialog::getOpenFileName(this, "Otwórz plik");
+    QFile file(fileName);
+    currentFileName = fileName;
+    if (!file.open(QIODevice::ReadOnly | QFile::Text))
+    {
+            QMessageBox::warning(this, "Błąd", "Nie można otworzyć pliku: " + file.errorString());
+            return;
+    }
+    setWindowTitle(currentFileName);
+
+    QTextStream in(&file);
+    QString text = in.readAll();
+    ui->tekst->setText(text);
+    file.close();
 }
 
 void Notepad::save()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    QString fileName;
+    // jeśli tworzymy nowy plik
+    if (currentFileName.isEmpty())
+    {
+        fileName = QFileDialog::getSaveFileName(this, "Zapisz");
+        currentFileName = fileName;
+    } else {
+        fileName = currentFileName;
+    }
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Błąd", "Nie można zapisać pliku: " + file.errorString());
+        return;
+    }
+    setWindowTitle(fileName);
+
+    QTextStream out(&file);
+    QString text = ui->tekst->toPlainText();
+    out << text;
+    file.close();
 }
 
 void Notepad::saveas()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    QString fileName = QFileDialog::getSaveFileName(this, "Zapisz jako...");
+    QFile file(fileName);
+
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, "Błąd", "Nie można zapisać pliku: " + file.errorString());
+        return;
+    }
+    currentFileName = fileName;
+    setWindowTitle(fileName);
+
+    QTextStream out(&file);
+    QString text = ui->tekst->toPlainText();
+    out << text;
+    file.close();
 }
 
 void Notepad::exit()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    QMessageBox::StandardButton button;
+    button = QMessageBox::question(this, "Informacja", "Czy na pewno chcesz zakończyć? Niezapisane zmiany zostaną usunięte", QMessageBox::Yes | QMessageBox::No);
+
+    if(button == QMessageBox::Yes)
+    {
+        QCoreApplication::quit();
+    }
 }
 
 void Notepad::undo()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    ui->tekst->undo();
 }
 
 void Notepad::redo()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    ui->tekst->redo();
 }
 
 void Notepad::cut()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    ui->tekst->cut();
 }
 
 void Notepad::copy()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    ui->tekst->copy();
 }
 
 void Notepad::paste()
 {
-    mgbox.setText("To");
-    mgbox.exec();
+    ui->tekst->paste();
 }
