@@ -43,6 +43,9 @@ protected:
        QAction *cutAct;
        QAction *copyAct;
        QAction *pasteAct;
+       QAction *findAct;
+       QAction *replaceAct;
+
           // KODOWANIE
        QAction *utfAct;
        QAction *ansiAct;
@@ -50,8 +53,7 @@ protected:
        QAction *javaAct;
        QAction *cssAct;
           // CZCIONKI
-       QAction *sizeAct;
-       QAction *typeAct;
+       QAction *propertiesAct;
        QAction *boldAct;
        QAction *italicAct;
        QAction *underlineAct;
@@ -68,9 +70,11 @@ private slots:
        // EDYCJA
     void mundo();
     void mredo();
-    void cut();
-    void copy();
-    void paste();
+    void mcut();
+    void mcopy();
+    void mpaste();
+    void find();
+    void replace();
 
        // KODOWANIE
     void utf();
@@ -80,8 +84,7 @@ private slots:
     void css();
 
        // CZCIONKI
-    void size();
-    void type();
+    void properties();
     void bold();
     void italic();
     void underline();

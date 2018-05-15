@@ -57,17 +57,25 @@ void Notepad::createActions()
     cutAct = new QAction(tr("&Wytnij"), this);
     cutAct->setShortcuts(QKeySequence::Cut);
     cutAct->setStatusTip(tr("Wytnij zaznaczony tekst"));
-    connect(cutAct, &QAction::triggered, this, &Notepad::cut);
+    connect(cutAct, &QAction::triggered, this, &Notepad::mcut);
 
     copyAct = new QAction(tr("&Kopiuj"), this);
     copyAct->setShortcuts(QKeySequence::Copy);
     copyAct->setStatusTip(tr("Skopiuj zaznaczony tekst"));
-    connect(copyAct, &QAction::triggered, this, &Notepad::copy);
+    connect(copyAct, &QAction::triggered, this, &Notepad::mcopy);
 
     pasteAct = new QAction(tr("&Wklej"), this);
     pasteAct->setShortcuts(QKeySequence::Paste);
     pasteAct->setStatusTip(tr("Wklej ze schowka"));
-    connect(pasteAct, &QAction::triggered, this, &Notepad::paste);
+    connect(pasteAct, &QAction::triggered, this, &Notepad::mpaste);
+
+    findAct = new QAction(tr("&Znajdź.."), this);
+    findAct->setShortcuts(QKeySequence::Find);
+    connect(findAct, &QAction::triggered, this, &Notepad::find);
+
+    replaceAct = new QAction(tr("&Zanjdź i zamień.."), this);
+    replaceAct->setShortcuts(QKeySequence::Replace);
+    connect(replaceAct, &QAction::triggered, this, &Notepad::replace);
 
     // ------------- Kodowanie
     utfAct = new QAction(tr("&UTF-8"), this);
@@ -86,11 +94,8 @@ void Notepad::createActions()
     connect(cssAct, &QAction::triggered, this, &Notepad::css);
 
     // ------------- Czcionka
-    sizeAct = new QAction(tr("&Rozmiar"), this);
-    connect(sizeAct, &QAction::triggered, this, &Notepad::size);
-
-    typeAct = new QAction(tr("&Typ czcionki"), this);
-    connect(typeAct, &QAction::triggered, this, &Notepad::type);
+    propertiesAct = new QAction(tr("&Właściwości"), this);
+    connect(propertiesAct, &QAction::triggered, this, &Notepad::properties);
 
     boldAct = new QAction(tr("&Pogrubienie"), this);
     boldAct->setCheckable(true);
@@ -140,11 +145,12 @@ void Notepad::createMenus()
     editMenu->addAction(copyAct);
     editMenu->addAction(pasteAct);
     editMenu->addSeparator();
+    editMenu->addAction(findAct);
+    editMenu->addAction(replaceAct);
 
     // ------------- Czcionka
     encodingMenu = menuBar()->addMenu(tr("&Czcionka"));
-    encodingMenu->addAction(sizeAct);
-    encodingMenu->addAction(typeAct);
+    encodingMenu->addAction(propertiesAct);
     encodingMenu->addSeparator();
     encodingMenu->addAction(boldAct);
     encodingMenu->addAction(italicAct);
@@ -162,6 +168,10 @@ void Notepad::createMenus()
 
 void Notepad::newFile()
 {
+    QString temp = ui->tekst->toPlainText();
+    if(temp.length() != 0){
+        save();
+    }
     currentFileName.clear();
     ui->tekst->setText(QString());
 }
@@ -186,27 +196,33 @@ void Notepad::open()
 
 void Notepad::save()
 {
-    QString fileName;
-    // jeśli tworzymy nowy plik
-    if (currentFileName.isEmpty())
+    QMessageBox::StandardButton button;
+    button = QMessageBox::question(this, "Informacja", "Czy chcesz zapisać zmiany?", QMessageBox::Yes | QMessageBox::No);
+
+    if(button == QMessageBox::Yes)
     {
-        fileName = QFileDialog::getSaveFileName(this, "Zapisz");
-        currentFileName = fileName;
-    } else {
-        fileName = currentFileName;
-    }
+        QString fileName;
+        // jeśli tworzyliśmy nowy plik
+        if (currentFileName.isEmpty())
+        {
+            fileName = QFileDialog::getSaveFileName(this, "Zapisz");
+            currentFileName = fileName;
+        } else {
+            fileName = currentFileName;
+        }
 
-    QFile file(fileName);
-    if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Błąd", "Nie można zapisać pliku: " + file.errorString());
-        return;
-    }
-    setWindowTitle(fileName);
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
+            QMessageBox::warning(this, "Błąd", "Nie można zapisać pliku: " + file.errorString());
+            return;
+        }
+        setWindowTitle(fileName);
 
-    QTextStream out(&file);
-    QString text = ui->tekst->toPlainText();
-    out << text;
-    file.close();
+        QTextStream out(&file);
+        QString text = ui->tekst->toPlainText();
+        out << text;
+        file.close();
+    }
 }
 
 void Notepad::saveas()
@@ -248,17 +264,17 @@ void Notepad::mredo()
     ui->tekst->redo();
 }
 
-void Notepad::cut()
+void Notepad::mcut()
 {
     ui->tekst->cut();
 }
 
-void Notepad::copy()
+void Notepad::mcopy()
 {
     ui->tekst->copy();
 }
 
-void Notepad::paste()
+void Notepad::mpaste()
 {
     ui->tekst->paste();
 }
@@ -307,12 +323,22 @@ void Notepad::underline()
     ui->tekst->setText(tr("Invoked <b>Edit|Format|Underline</b>"));
 }
 
-void Notepad::size()
+void Notepad::properties()
+{
+    bool fontSelected;
+    QFont font = QFontDialog::getFont(&fontSelected, this);
+    if (fontSelected)
+    {
+        ui->tekst->setFont(font);
+    }
+}
+
+void Notepad::find()
 {
 
 }
 
-void Notepad::type()
+void Notepad::replace()
 {
 
 }
